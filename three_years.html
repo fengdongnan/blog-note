@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三年之约 · 职场副本通关看板</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Google Fonts: Inter 与 JetBrains Mono 等宽字体用于跳动数字 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <!-- 引入 Phosphor Icons 图标库 -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                        }
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-4px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 自定义滚动条与精致极客视觉特效 */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(156, 163, 175, 0.3);
+            border-radius: 9999px;
+        }
+
+        /* 便当盒卡片光泽与微发光效果 */
+        .bento-card {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bento-card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* 进度条动态斜纹光泽 */
+        .progress-shimmer {
+            background-image: linear-gradient(
+                    45deg,
+                    rgba(255, 255, 255, 0.15) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.15) 50%,
+                    rgba(255, 255, 255, 0.15) 75%,
+                    transparent 75%,
+                    transparent
+            );
+            background-size: 1.5rem 1.5rem;
+            animation: shimmer-move 1.2s linear infinite;
+        }
+        @keyframes shimmer-move {
+            0% { background-position: 0 0; }
+            100% { background-position: 1.5rem 0; }
+        }
+
+        /* 当前所在的格子呼吸灯特效 */
+        .cell-current {
+            animation: cell-breathe 2s infinite ease-in-out;
+        }
+        @keyframes cell-breathe {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6), 0 0 12px 2px rgba(16, 185, 129, 0.4);
+                transform: scale(1.04);
+            }
+            50% {
+                box-shadow: 0 0 0 6px rgba(16, 185, 129, 0), 0 0 18px 4px rgba(16, 185, 129, 0.7);
+                transform: scale(0.98);
+            }
+        }
+
+        /* 浮动 +1 动画 */
+        @keyframes float-up-fade {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-28px) scale(1.25); }
+        }
+        .float-plus-one {
+            animation: float-up-fade 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-[#0B0F19] text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-300 selection:bg-indigo-500 selection:text-white pb-12">
+
+<!-- 背景环境氛围光 -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-indigo-500/15 dark:bg-indigo-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/3 -right-40 w-96 h-96 bg-emerald-500/15 dark:bg-emerald-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-purple-500/15 dark:bg-purple-500/10 rounded-full blur-3xl"></div>
+</div>
+
+<!-- 主容器 -->
+<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+
+    <!-- 顶部导航栏 (Header) -->
+    <header class="flex flex-wrap items-center justify-between gap-4 mb-6 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800/80 rounded-2xl px-5 py-4 shadow-sm">
+        <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-emerald-400 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25">
+                <i class="ph-fill ph-sword text-2xl"></i>
+            </div>
+            <div>
+                <div class="flex items-center gap-2.5">
+                    <h1 class="text-lg sm:text-xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-indigo-800 to-slate-900 dark:from-white dark:via-indigo-200 dark:to-emerald-200">
+                        三年之约 · 职场副本通关看板
+                    </h1>
+                    <span id="current-title-badge" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                            <span id="header-rank-text">Lv.2 转正勇者</span>
+                        </span>
+                </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                    把漫长的 1095 天拆解成看得见的经验值，每一秒都在迈向自由与圆满
+                </p>
+            </div>
+        </div>
+
+        <!-- 右侧操作区 -->
+        <div class="flex items-center gap-2.5">
+            <!-- 老板键 (伪装模式) -->
+            <button id="boss-key-btn" title="快捷键: ESC 一键切换工作伪装视图" class="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors border border-slate-200/60 dark:border-slate-700/60">
+                <i class="ph ph-shield-check text-base text-emerald-500"></i>
+                <span class="hidden sm:inline">老板键 (ESC)</span>
+            </button>
+
+            <!-- 主题切换 -->
+            <button id="theme-toggle-btn" aria-label="切换主题" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors border border-slate-200/60 dark:border-slate-700/60">
+                <i id="theme-icon" class="ph-fill ph-sun text-lg text-amber-400"></i>
+            </button>
+
+            <!-- 副本参数设置 -->
+            <button id="open-settings-btn" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-500/20 transition-all">
+                <i class="ph ph-sliders-horizontal text-base"></i>
+                <span>副本配置</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Bento Box 主网格布局 -->
+    <main class="grid grid-cols-1 md:grid-cols-12 gap-5">
+
+        <!-- ================= 模块 1：核心主进度条（三年大关总进度） ================= -->
+        <section class="bento-card md:col-span-12 bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800/90 rounded-3xl p-6 sm:p-8 shadow-sm relative overflow-hidden">
+            <!-- 顶部装饰光晕 -->
+            <div class="absolute -right-20 -top-20 w-72 h-72 bg-gradient-to-br from-indigo-500/10 to-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-6">
+                <div>
+                    <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+                                <i class="ph-fill ph-flag-banner"></i> 主线任务：<span id="target-years-label">3</span>年之约
+                            </span>
+                        <span id="date-range-pill" class="text-xs font-mono text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/80 px-2.5 py-1 rounded-full">
+                                2026-06-28 ~ 2029-06-28
+                            </span>
+                        <span id="milestone-celebration-badge" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 animate-bounce">
+                                🎉 新手村刚毕业 · 转正通关达成！
+                            </span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                        实时副本同步率（精确至小数点后6位，每一秒都在跳动前进）：
+                    </p>
+                    <!-- 精确到小数点后6位的实时动态百分比 -->
+                    <div class="mt-1 flex items-baseline gap-2">
+                        <div id="main-percentage-display" class="font-mono text-4xl sm:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-500 to-emerald-500 dark:from-indigo-400 dark:via-purple-300 dark:to-emerald-400">
+                            10.045662%
+                        </div>
+                        <span class="text-xs font-mono text-emerald-500 flex items-center gap-0.5">
+                                <i class="ph-bold ph-trend-up"></i> +0.000001%/s
+                            </span>
+                    </div>
+                </div>
+
+                <!-- 天数统计三联卡片 -->
+                <div class="grid grid-cols-3 gap-3 sm:gap-4 min-w-full lg:min-w-[420px]">
+                    <div class="bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/50 rounded-2xl p-3.5 text-center">
+                        <div class="text-xs text-slate-500 dark:text-slate-400 mb-1 flex items-center justify-center gap-1">
+                            <i class="ph-fill ph-check-circle text-emerald-500"></i> 已闯关天数
+                        </div>
+                        <div class="font-mono text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
+                            <span id="days-passed">110</span> <span class="text-xs font-normal text-slate-400">天</span>
+                        </div>
+                        <div id="hours-passed-sub" class="text-[11px] font-mono text-slate-400 mt-0.5">2,640 小时</div>
+                    </div>
+
+                    <div class="bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/50 rounded-2xl p-3.5 text-center">
+                        <div class="text-xs text-slate-500 dark:text-slate-400 mb-1 flex items-center justify-center gap-1">
+                            <i class="ph-fill ph-hourglass-high text-indigo-500"></i> 剩余解放天数
+                        </div>
+                        <div class="font-mono text-xl sm:text-2xl font-bold text-indigo-600 dark:text-indigo-400">
+                            <span id="days-remaining">985</span> <span class="text-xs font-normal text-slate-400">天</span>
+                        </div>
+                        <div id="workdays-remaining-sub" class="text-[11px] font-mono text-slate-400 mt-0.5">约 703 个工作日</div>
+                    </div>
+
+                    <div class="bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/50 rounded-2xl p-3.5 text-center">
+                        <div class="text-xs text-slate-500 dark:text-slate-400 mb-1 flex items-center justify-center gap-1">
+                            <i class="ph-fill ph-trophy text-amber-500"></i> 副本总时长
+                        </div>
+                        <div class="font-mono text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
+                            <span id="days-total">1095</span> <span class="text-xs font-normal text-slate-400">天</span>
+                        </div>
+                        <div id="next-milestone-sub" class="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium mt-0.5 truncate">距半载达成 73天</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 主进度条轨道 -->
+            <div class="relative pt-2 pb-8">
+                <div class="h-5 sm:h-6 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden p-1 shadow-inner border border-slate-200/60 dark:border-slate-700/60">
+                    <div id="main-progress-bar" class="h-full rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-400 progress-shimmer relative transition-all duration-300" style="width: 10%;">
+                        <!-- 进度条头部发光游标 -->
+                        <div class="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-[0_0_10px_3px_rgba(255,255,255,0.9)]"></div>
+                    </div>
+                </div>
+
+                <!-- 里程碑节点标记 (Milestone Track - 桌面端自适应绝对定位 + 移动端列表展示) -->
+                <div id="milestone-track-desktop" class="hidden md:block relative w-full h-14 mt-2">
+                    <!-- 由 JS 动态渲染 7 个关键里程碑节点 -->
+                </div>
+
+                <!-- 移动端里程碑横向滑动胶囊 -->
+                <div id="milestone-track-mobile" class="flex md:hidden items-center gap-2 overflow-x-auto pt-4 pb-1 no-scrollbar">
+                    <!-- 由 JS 动态渲染 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 模块 3：多维“微盼头”缓冲池（4个高频小目标卡片） ================= -->
+        <div class="md:col-span-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+            <!-- 微盼头 1：今日下班倒计时 -->
+            <div class="bento-card bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800/90 rounded-2xl p-5 flex flex-col justify-between shadow-sm">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                                <i class="ph-fill ph-sun-horizon text-amber-500 text-base"></i> 今日下班倒计时
+                            </span>
+                        <span id="work-status-tag" class="px-2 py-0.5 text-[11px] font-medium rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                                搬砖中
+                            </span>
+                    </div>
+                    <div id="offwork-countdown" class="font-mono text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+                        02:15:40
+                    </div>
+                    <p id="offwork-subtext" class="text-xs text-slate-400 mt-1">
+                        今日已消耗 74.2% 工时
+                    </p>
+                </div>
+                <div class="mt-4">
+                    <div class="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <div id="offwork-progress-bar" class="h-full bg-gradient-to-r from-amber-400 to-orange-500 rounded-full transition-all duration-500" style="width: 74%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 微盼头 2：本周周末倒计时 -->
+            <div class="bento-card bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800/90 rounded-2xl p-5 flex flex-col justify-between shadow-sm">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                                <i class="ph-fill ph-Cheers text-purple-500 text-base"></i> 距离周五下班解放
+                            </span>
+                        <span id="weekend-status-tag" class="px-2 py-0.5 text-[11px] font-medium rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400">
+                                周四冲刺
+                            </span>
+                    </div>
+                    <div id="weekend-countdown" class="font-mono text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+                        1天 02小时
+                    </div>
+                    <p id="weekend-subtext" class="text-xs text-slate-400 mt-1">
+                        本周进度已走完 78%
+                    </p>
+                </div>
+                <div class="mt-4">
+                    <div class="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <div id="weekend-progress-bar" class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-500" style="width: 78%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 微盼头 3：发薪日回血倒计时 -->
+            <div class="bento-card bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800/90 rounded-2xl p-5 flex flex-col justify-between shadow-sm">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                                <i class="ph-fill ph-coins text-emerald-500 text-base"></i> 距离下次发薪回血
+                            </span>
+                        <span id="payday-date-tag" class="px-2 py-0.5 text-[11px] font-mono font-medium rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                                每月15日
+                            </span>
+                    </div>
+                    <div class="flex items-baseline gap-1.5">
+                        <span id="payday-countdown-days" class="font-mono text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">0</span>
+                        <span class="text-sm font-medium text-slate-500">天</span>
+                    </div>
+                    <p id="payday-subtext" class="text-xs text-slate-400 mt-1">
+                        金币即将到账，注意查收！
+                    </p>
+                </div>
+                <div class="mt-4">
+                    <div class="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <div id="payday-progress-bar" class="h-full bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full transition-all duration-500" style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 微盼头 4：下一个法定节假日 -->
+            <div class="bento-card bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800/90 rounded-2xl p-5 flex flex-col justify-between shadow-sm">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                                <i class="ph-fill ph-airplane-tilt text-sky-500 text-base"></i> 下个法定节假日
+                            </span>
+                        <span id="holiday-name-tag" class="px-2 py-0.5 text-[11px] font-medium rounded-md bg-sky-500/10 text-sky-600 dark:text-sky-400">
+                                2027元旦
+                            </span>
+                    </div>
+                    <div class="flex items-baseline gap-1.5">
+                        <span id="holiday-countdown-days" class="font-mono text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">78</span>
+                        <span class="text-sm font-medium text-slate-500">天</span>
+                    </div>
+                    <p id="holiday-subtext" class="text-xs text-slate-400 mt-1">
+                        目标日期：2027-01-01
+                    </p>
+                </div>
+                <div class="mt-4 flex items-center gap-1.5 text-[11px] text-sky-600 dark:text-sky-400 bg-sky-500/5 px-2.5 py-1.5 rounded-lg border border-sky-500/10">
+                    <i class="ph-fill ph-sparkle"></i>
+                    <span id="holiday-next-tip" class="truncate">紧接着就是春节长假啦</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================= 模块 2：人生格子 / 36个月进度矩阵 & 156周热力图 ================= -->
+        <section class="bento-card md:col-span-7 lg:col-span-8 bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800/90 rounded-3xl p-6 flex flex-col justify-between shadow-sm">
+            <div>
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+                    <div>
+                        <h2 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <i class="ph-fill ph-squares-four text-indigo-500 text-xl"></i>
+                            <span id="matrix-title">36个月 · 副本通关进度矩阵</span>
+                        </h2>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                            看着格子一个个被点亮填满，每一格都是实打实攒下的资历与底气
+                        </p>
+                    </div>
+
+                    <!-- 视图切换按钮 (36个月 / 156周) -->
+                    <div class="inline-flex p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60">
+                        <button id="view-months-btn" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-white dark:bg-slate-700 text-indigo-600 dark:text-white shadow-sm">
+                            <span id="btn-months-label">36</span>个月视图
+                        </button>
+                        <button id="view-weeks-btn" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+                            <span id="btn-weeks-label">156</span>周热力图
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 矩阵容器 -->
+                <div id="matrix-container" class="my-2">
+                    <!-- 由 JS 动态渲染 36 个月卡片 或 156 周小方块 -->
+                </div>
+            </div>
+
+            <!-- 底部图例与选中格子详情 -->
+            <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+                <div class="flex items-center gap-4 text-slate-500 dark:text-slate-400">
+                        <span class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded bg-gradient-to-br from-indigo-500 to-emerald-400 inline-block"></span> 已点亮通关
+                        </span>
+                    <span class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded bg-emerald-500 animate-pulse inline-block"></span> 当前激战中
+                        </span>
+                    <span class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 inline-block"></span> 待解锁未来
+                        </span>
+                </div>
+                <div id="matrix-hover-info" class="font-mono text-xs text-indigo-600 dark:text-indigo-400 font-medium">
+                    💡 鼠标悬停格子可查看对应时间段详情
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 模块 4：趣味“打工换算器”与精神氮泵（Buff统计） ================= -->
+        <section class="md:col-span-5 lg:col-span-4 flex flex-col gap-5">
+
+            <!-- 趣味打工换算器 (Buff 统计卡片) -->
+            <div class="bento-card bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800/90 rounded-3xl p-6 shadow-sm flex-1 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <i class="ph-fill ph-lightning text-amber-500 text-xl"></i>
+                            打工换算器 · 副本收获
+                        </h2>
+                        <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-500">BUFF 叠加中</span>
+                    </div>
+
+                    <div class="space-y-3">
+                        <!-- 已拿下发薪日 -->
+                        <div class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/50 dark:border-slate-700/50">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-xl">
+                                    💰
+                                </div>
+                                <div>
+                                    <div class="text-xs font-medium text-slate-500 dark:text-slate-400">已成功拿下发薪日</div>
+                                    <div class="text-[11px] text-slate-400">距离36次满级领薪更近一步</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span id="stat-paydays" class="font-mono text-xl font-extrabold text-emerald-600 dark:text-emerald-400">3</span>
+                                <span class="text-xs text-slate-400"> / <span id="stat-total-paydays">36</span> 次</span>
+                            </div>
+                        </div>
+
+                        <!-- 已度过愉快周末 -->
+                        <div class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/50 dark:border-slate-700/50">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center text-xl">
+                                    🎮
+                                </div>
+                                <div>
+                                    <div class="text-xs font-medium text-slate-500 dark:text-slate-400">已享受愉快周末</div>
+                                    <div class="text-[11px] text-slate-400">属于自己的自由回血日</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span id="stat-weekends" class="font-mono text-xl font-extrabold text-purple-600 dark:text-purple-400">31</span>
+                                <span class="text-xs text-slate-400"> 天</span>
+                            </div>
+                        </div>
+
+                        <!-- 已消耗续命咖啡/茶 (支持点击+1互动) -->
+                        <div class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/50 dark:border-slate-700/50 relative">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-xl">
+                                    ☕
+                                </div>
+                                <div>
+                                    <div class="text-xs font-medium text-slate-500 dark:text-slate-400">已消耗续命咖啡/茶</div>
+                                    <div class="text-[11px] text-slate-400">按工作日推算 + 手动续杯</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="text-right">
+                                    <span id="stat-coffees" class="font-mono text-xl font-extrabold text-amber-600 dark:text-amber-400">78</span>
+                                    <span class="text-xs text-slate-400"> 杯</span>
+                                </div>
+                                <button id="add-coffee-btn" class="relative px-2.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-95 text-white text-xs font-bold shadow-sm shadow-amber-500/20 transition-all flex items-center gap-1">
+                                    <span>+1</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 简历含金量经验条 -->
+                <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs">
+                        <span class="text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                            <i class="ph-fill ph-medal text-indigo-500"></i> 简历大厂/资深年限解锁度：
+                        </span>
+                    <span id="resume-exp-text" class="font-mono font-bold text-indigo-600 dark:text-indigo-400">0.30 / 3.0 年</span>
+                </div>
+            </div>
+
+            <!-- 今日精神氮泵 / 随机摸鱼金句 -->
+            <div id="quote-card" class="bento-card cursor-pointer group bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800 text-white rounded-3xl p-6 shadow-lg shadow-indigo-500/15 relative overflow-hidden select-none">
+                <div class="absolute -right-6 -bottom-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <i class="ph-fill ph-quotes text-9xl"></i>
+                </div>
+                <div class="flex items-center justify-between mb-3">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-white/15 backdrop-blur-sm">
+                            <i class="ph-fill ph-fire text-amber-300"></i> 今日精神氮泵
+                        </span>
+                    <span class="text-xs text-indigo-200 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+                            <i class="ph ph-arrows-clockwise"></i> 点击换一句
+                        </span>
+                </div>
+                <blockquote id="quote-text" class="text-sm sm:text-base font-medium leading-relaxed min-h-[3.5rem] flex items-center">
+                    “把3年拆成36个发薪日，你已经稳稳拿下3个了！新手村已经毕业，接下来的每一步都是纯赚经验值。”
+                </blockquote>
+                <div class="mt-3 flex items-center justify-between text-[11px] text-indigo-200/80">
+                    <span id="quote-tag"># 职场副本生存指南</span>
+                    <span id="quote-index">1 / 12</span>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+</div>
+
+<!-- ================= 模态框 1：副本参数设置 (localStorage 持久化) ================= -->
+<div id="settings-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/60 backdrop-blur-sm p-4">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <i class="ph-fill ph-sliders-horizontal text-indigo-500"></i>
+                自定义职场副本参数
+            </h3>
+            <button id="close-settings-btn" class="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i class="ph ph-x text-lg"></i>
+            </button>
+        </div>
+
+        <form id="settings-form" class="space-y-4 mt-5">
+            <div>
+                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1.5">
+                    入职开启日期 (新手村出生日)
+                </label>
+                <input type="date" id="input-start-date" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-mono text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1.5">
+                        目标通关年限 (年)
+                    </label>
+                    <input type="number" id="input-target-years" min="0.5" max="10" step="0.5" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-mono text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1.5">
+                        每月发薪日 (1-31号)
+                    </label>
+                    <input type="number" id="input-payday" min="1" max="31" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-mono text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1.5">
+                        每日上班时间
+                    </label>
+                    <input type="time" id="input-work-start" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-mono text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1.5">
+                        每日下班时间
+                    </label>
+                    <input type="time" id="input-work-end" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-mono text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3">
+                <button type="button" id="reset-default-btn" class="px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                    恢复默认配置
+                </button>
+                <button type="submit" class="px-6 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-500/20 transition-all">
+                    保存并更新看板
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ================= 模态框 2：老板键伪装视图 (一键伪装成系统监控面板) ================= -->
+<div id="boss-overlay" class="fixed inset-0 z-[60] hidden bg-[#0d1117] text-slate-300 font-mono p-6 overflow-auto select-none">
+    <div class="max-w-6xl mx-auto">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-6">
+            <div class="flex items-center gap-2 text-emerald-400 text-sm">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                <span>PROD-CLUSTER-MONITOR // KUBERNETES NODE TELEMETRY v4.12.8</span>
+            </div>
+            <button id="exit-boss-btn" class="text-xs text-slate-500 hover:text-slate-300 border border-slate-800 px-2.5 py-1 rounded">
+                [ESC] Exit Diagnostics
+            </button>
+        </div>
+        <div class="grid grid-cols-3 gap-4 mb-6 text-xs">
+            <div class="bg-[#161b22] border border-slate-800 p-4 rounded">
+                <div class="text-slate-500">CPU UTILIZATION (CLUSTER)</div>
+                <div class="text-2xl font-bold text-emerald-400 mt-1">42.81%</div>
+                <div class="text-slate-600 mt-1">128 vCPU / Load avg: 2.14, 1.98, 2.01</div>
+            </div>
+            <div class="bg-[#161b22] border border-slate-800 p-4 rounded">
+                <div class="text-slate-500">MEMORY ALLOCATION</div>
+                <div class="text-2xl font-bold text-sky-400 mt-1">68.4 GB / 128 GB</div>
+                <div class="text-slate-600 mt-1">Cache buffered: 14.2 GB</div>
+            </div>
+            <div class="bg-[#161b22] border border-slate-800 p-4 rounded">
+                <div class="text-slate-500">API GATEWAY P99 LATENCY</div>
+                <div class="text-2xl font-bold text-amber-400 mt-1">18.4 ms</div>
+                <div class="text-slate-600 mt-1">200 OK rate: 99.998%</div>
+            </div>
+        </div>
+        <div class="bg-[#161b22] border border-slate-800 p-4 rounded text-xs leading-relaxed space-y-1.5 text-slate-400">
+            <div class="text-slate-200 font-bold mb-2">REAL-TIME CONTAINER STREAM LOGS:</div>
+            <div>[INFO] 09:41:02.114 worker-node-04: Successfully synced shard replica #12 (checksum: 8f94e2a)</div>
+            <div>[INFO] 09:41:04.502 ingress-ctrl: Upstream health check passed for service/core-payment-v3</div>
+            <div>[DEBUG] 09:41:05.891redis-sentinel: Master quorum verified (3/3 instances healthy)</div>
+            <div>[INFO] 09:41:09.012 cron-scheduler: Executed batch aggregation job [id=batch_1095_days_ok] in 142ms</div>
+            <div class="text-emerald-400">[OK] All distributed services operating within normal SLA parameters. Press ESC to return.</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    /**
+     * 三年之约 · 职场副本通关看板核心逻辑
+     */
+    const STORAGE_KEY = 'career_3year_dashboard_config_v1';
+
+    // 默认配置（默认入职日期为 2026-06-28，距当前约3个半月）
+    const DEFAULT_CONFIG = {
+        startDate: '2026-06-28',
+        targetYears: 3,
+        payday: 15,
+        workStart: '09:00',
+        workEnd: '18:00',
+        extraCoffee: 0,
+        matrixView: 'months', // 'months' | 'weeks'
+        theme: 'dark'
+    };
+
+    // 7个关键里程碑定义
+    const MILESTONES = [
+        { pct: 0,     label: '新手村开启', sub: '入职Day1', icon: '🌱' },
+        { pct: 8.33,  label: '转正通关',   sub: '3个月',    icon: '⚔️' },
+        { pct: 16.67, label: '半载达成',   sub: '6个月',    icon: '🛡️' },
+        { pct: 33.33, label: '一周年纪念', sub: '1年',      icon: '🏅' },
+        { pct: 50.0,  label: '半程马拉松', sub: '1.5年',    icon: '🔥' },
+        { pct: 66.67, label: '资深老鸟',   sub: '2年',      icon: '🦅' },
+        { pct: 100.0, label: '功德圆满',   sub: '3年毕业',  icon: '👑' }
+    ];
+
+    // 内置 2026 - 2029 常见法定节假日列表（自动匹配最近的一个未来节日）
+    const HOLIDAYS = [
+        { date: '2026-01-01', name: '元旦假期', tip: '新的一年开启' },
+        { date: '2026-02-17', name: '春节长假', tip: '阖家团圆充大电' },
+        { date: '2026-04-05', name: '清明节', tip: '春暖花开踏青去' },
+        { date: '2026-05-01', name: '五一劳动节', tip: '属于打工人的黄金周' },
+        { date: '2026-06-19', name: '端午节', tip: '吃粽子放小长假' },
+        { date: '2026-09-25', name: '中秋节', tip: '赏月吃月饼团圆日' },
+        { date: '2026-10-01', name: '国庆黄金周', tip: '连休7天长假充能' },
+        { date: '2027-01-01', name: '2027元旦', tip: '跨年迎新小长假' },
+        { date: '2027-02-06', name: '2027春节', tip: '年度最长回血假期' },
+        { date: '2027-04-05', name: '清明小长假', tip: '春日出游好时节' },
+        { date: '2027-05-01', name: '五一黄金周', tip: '初夏五天乐逍遥' },
+        { date: '2027-06-09', name: '端午小长假', tip: '仲夏端阳连休' },
+        { date: '2027-09-15', name: '中秋小长假', tip: '金秋十月前奏曲' },
+        { date: '2027-10-01', name: '国庆黄金周', tip: '年度最后一个长假' },
+        { date: '2028-01-01', name: '2028元旦', tip: '距离三年目标越来越近' },
+        { date: '2028-01-26', name: '2028春节', tip: '新春大吉满血复活' },
+        { date: '2028-05-01', name: '五一劳动节', tip: '资深老鸟的假期' },
+        { date: '2028-10-01', name: '国庆黄金周', tip: '进入三年倒计时冲刺' },
+        { date: '2029-01-01', name: '2029元旦', tip: '决胜之年开启！' },
+        { date: '2029-02-13', name: '2029春节', tip: '毕业前最后一个春节' },
+        { date: '2029-05-01', name: '五一劳动节', tip: '胜利就在前方！' }
+    ];
+
+    // 精神氮泵语录库
+    const QUOTES = [
+        { text: "“把3年拆成36个发薪日，你已经稳稳拿下前几个了！新手村已经毕业，接下来的每一步都是纯赚经验值。”", tag: "# 发薪日拆解法" },
+        { text: "“每一行代码的提交、每一个文档的落笔，表面是交给公司的产出，实际上都在为三年后你简历上的黄金筹码添砖加瓦。”", tag: "# 职场副本生存指南" },
+        { text: "“3年看似1095天很漫长，但扣掉周末和法定节假日，真正需要坐班闯关的日子其实少掉了一大半！”", tag: "# 真相定律" },
+        { text: "“上班是付费学习+攒资历的过程。今天喝下的每一杯咖啡，都会变成未来跳槽或自由选择时的底气。”", tag: "# 打工换算哲学" },
+        { text: "“最难熬的其实是前3个月的适应期。既然你已经成功挺过了新手村，剩下的路只会越走越顺！”", tag: "# 转正通关达成" },
+        { text: "“不要一直盯着1095天的终点线看，先看今天18:00的下班铃，再看周五晚上的自由风，不知不觉格子就填满了。”", tag: "# 微盼头法则" },
+        { text: "“你在工位上度过的每一秒，右上角的小数点都在忠实地向前跳动。时间从不辜负坚持的人。”", tag: "# 时间可视化" },
+        { text: "“把公司当成你的练级房：拿老板的俸禄，练自己的技能树，等3年契约期满，去留皆由你定！”", tag: "# 满级神装养成" }
+    ];
+
+    let state = loadConfig();
+    let currentQuoteIdx = 0;
+    let lastRenderedMatrixKey = '';
+
+    // 读取配置
+    function loadConfig() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (raw) {
+                return { ...DEFAULT_CONFIG, ...JSON.parse(raw) };
+            }
+        } catch (e) {
+            console.warn('读取 localStorage 失败，使用默认配置', e);
+        }
+        return { ...DEFAULT_CONFIG };
+    }
+
+    // 保存配置
+    function saveConfig() {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (e) {
+            console.warn('保存 localStorage 失败', e);
+        }
+    }
+
+    // 应用深浅色主题
+    function applyTheme() {
+        const htmlEl = document.documentElement;
+        const iconEl = document.getElementById('theme-icon');
+        if (state.theme === 'dark') {
+            htmlEl.classList.add('dark');
+            iconEl.className = 'ph-fill ph-sun text-lg text-amber-400';
+        } else {
+            htmlEl.classList.remove('dark');
+            iconEl.className = 'ph-fill ph-moon-stars text-lg text-indigo-600';
+        }
+    }
+
+    // 格式化日期 YYYY-MM-DD
+    function formatDate(dateObj) {
+        const y = dateObj.getFullYear();
+        const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const d = String(dateObj.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    }
+
+    // 计算起止时间对象
+    function getCareerBounds() {
+        const [y, m, d] = state.startDate.split('-').map(Number);
+        const start = new Date(y, m - 1, d, 0, 0, 0);
+        // 支持整数或0.5年目标
+        const totalMonths = Math.round(state.targetYears * 12);
+        const end = new Date(y, m - 1 + totalMonths, d, 0, 0, 0);
+        return { start, end, totalMonths };
+    }
+
+    // 渲染里程碑节点轨道
+    function renderMilestones(currentPct) {
+        const desktopTrack = document.getElementById('milestone-track-desktop');
+        const mobileTrack = document.getElementById('milestone-track-mobile');
+
+        let desktopHTML = '';
+        let mobileHTML = '';
+
+        // 找到最近刚达成的节点
+        let activeIdx = 0;
+        MILESTONES.forEach((m, idx) => {
+            if (currentPct >= m.pct) activeIdx = idx;
+        });
+
+        MILESTONES.forEach((m, idx) => {
+            const isReached = currentPct >= m.pct;
+            const isJustReached = idx === activeIdx && currentPct < 100;
+
+            // 控制首尾节点不超出边界
+            let posClass = '-translate-x-1/2';
+            if (idx === 0) posClass = 'translate-x-0';
+            if (idx === MILESTONES.length - 1) posClass = '-translate-x-full';
+
+            const dotColor = isReached
+                ? (isJustReached ? 'bg-emerald-500 ring-4 ring-emerald-500/30 scale-125' : 'bg-indigo-500')
+                : 'bg-slate-300 dark:bg-slate-700';
+
+            const textColor = isReached
+                ? (isJustReached ? 'text-emerald-600 dark:text-emerald-400 font-bold' : 'text-slate-700 dark:text-slate-300 font-medium')
+                : 'text-slate-400 dark:text-slate-500';
+
+            desktopHTML += `
+                    <div class="absolute top-0 ${posClass} flex flex-col items-center group" style="left: ${m.pct}%;">
+                        <div class="w-3 h-3 rounded-full ${dotColor} transition-all duration-300 mb-1.5"></div>
+                        <div class="text-xs whitespace-nowrap ${textColor} flex items-center gap-0.5">
+                            <span>${m.icon}</span>
+                            <span>${m.label}</span>
+                        </div>
+                        <div class="text-[10px] font-mono text-slate-400 dark:text-slate-500 whitespace-nowrap">
+                            ${m.sub} (${Math.round(m.pct)}%)
+                        </div>
+                    </div>
+                `;
+
+            const mobileBg = isReached
+                ? (isJustReached ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-600 dark:text-emerald-400' : 'bg-indigo-500/10 border-indigo-500/20 text-indigo-600 dark:text-indigo-300')
+                : 'bg-slate-100 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 text-slate-400';
+
+            mobileHTML += `
+                    <div class="shrink-0 px-3 py-1.5 rounded-xl border text-xs flex items-center gap-1.5 ${mobileBg}">
+                        <span>${m.icon}</span>
+                        <span class="font-semibold">${m.label}</span>
+                        <span class="text-[10px] opacity-75">(${m.sub})</span>
+                    </div>
+                `;
+        });
+
+        desktopTrack.innerHTML = desktopHTML;
+        mobileTrack.innerHTML = mobileHTML;
+
+        // 更新顶部称号与庆祝徽章
+        const activeMilestone = MILESTONES[activeIdx];
+        const rankTextEl = document.getElementById('header-rank-text');
+        const badgeEl = document.getElementById('milestone-celebration-badge');
+
+        rankTextEl.textContent = `Lv.${activeIdx + 1} ${activeMilestone.label}`;
+        if (currentPct >= 8.33 && currentPct < 16.67) {
+            badgeEl.innerHTML = `🎉 新手村刚毕业 · 转正通关达成！`;
+        } else if (currentPct >= 100) {
+            badgeEl.innerHTML = `👑 恭喜！三年之约功德圆满！`;
+        } else {
+            const nextM = MILESTONES[Math.min(activeIdx + 1, MILESTONES.length - 1)];
+            badgeEl.innerHTML = `${activeMilestone.icon} 当前阶段：${activeMilestone.label} · 下一站：${nextM.label}`;
+        }
+    }
+
+    // 渲染 36个月矩阵 或 156周热力图
+    function renderMatrix(now, start, end, totalMonths) {
+        const totalWeeks = Math.round(state.targetYears * 52);
+        const currentMonthIdx = Math.floor(((now - start) / (end - start)) * totalMonths);
+        const currentWeekIdx = Math.floor(((now - start) / (end - start)) * totalWeeks);
+
+        const cacheKey = `${state.matrixView}_${state.startDate}_${state.targetYears}_${currentMonthIdx}_${currentWeekIdx}`;
+        if (cacheKey === lastRenderedMatrixKey) return;
+        lastRenderedMatrixKey = cacheKey;
+
+        document.getElementById('btn-months-label').textContent = totalMonths;
+        document.getElementById('btn-weeks-label').textContent = totalWeeks;
+
+        const container = document.getElementById('matrix-container');
+        const hoverInfo = document.getElementById('matrix-hover-info');
+        const titleEl = document.getElementById('matrix-title');
+
+        if (state.matrixView === 'months') {
+            titleEl.textContent = `${totalMonths}个月 · 副本通关进度矩阵`;
+            let html = `<div class="grid grid-cols-6 sm:grid-cols-9 md:grid-cols-9 lg:grid-cols-12 gap-2.5">`;
+
+            for (let i = 0; i < totalMonths; i++) {
+                const mStart = new Date(start.getFullYear(), start.getMonth() + i, start.getDate());
+                const mEnd = new Date(start.getFullYear(), start.getMonth() + i + 1, start.getDate());
+                const dateLabel = `${mStart.getFullYear()}.${String(mStart.getMonth() + 1).padStart(2, '0')}`;
+
+                let cellClass = '';
+                let statusDesc = '';
+                let subPct = '';
+
+                if (now >= mEnd) {
+                    // 已点亮通关
+                    cellClass = 'bg-gradient-to-br from-indigo-500 to-emerald-500 text-white shadow-sm shadow-indigo-500/20 border-transparent';
+                    statusDesc = '已圆满通关 ✅';
+                    subPct = '100%';
+                } else if (now >= mStart && now < mEnd) {
+                    // 当前月（呼吸灯特效）
+                    const monthProgress = Math.min(100, Math.max(0, Math.round(((now - mStart) / (mEnd - mStart)) * 100)));
+                    cellClass = 'bg-emerald-500/15 dark:bg-emerald-500/20 border-2 border-emerald-500 text-emerald-700 dark:text-emerald-300 cell-current font-bold';
+                    statusDesc = `当前正在闯关中 (${monthProgress}%) 🔥`;
+                    subPct = `${monthProgress}%`;
+                } else {
+                    // 未来待点亮
+                    cellClass = 'bg-slate-100/80 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-700/60 text-slate-400 dark:text-slate-500 hover:border-indigo-400';
+                    statusDesc = '待解锁未来 ⏳';
+                    subPct = dateLabel.slice(5) + '月';
+                }
+
+                html += `
+                        <div data-info="第 ${i + 1} 个月 (${formatDate(mStart)} ~ ${formatDate(mEnd)}) · ${statusDesc}"
+                             class="matrix-cell cursor-pointer rounded-xl p-2 flex flex-col items-center justify-center h-14 transition-all ${cellClass}">
+                            <span class="text-xs font-mono font-bold">M${i + 1}</span>
+                            <span class="text-[10px] font-mono opacity-85 mt-0.5">${subPct}</span>
+                        </div>
+                    `;
+            }
+            html += `</div>`;
+            container.innerHTML = html;
+        } else {
+            // 156周 GitHub Contributions 风格视图
+            titleEl.textContent = `${totalWeeks}周 · 极客热力图矩阵`;
+            let html = `<div class="grid grid-cols-13 sm:grid-cols-26 gap-1.5" style="grid-template-columns: repeat(auto-fill, minmax(18px, 1fr));">`;
+
+            for (let w = 0; w < totalWeeks; w++) {
+                const wStart = new Date(start.getTime() + w * 7 * 86400000);
+                const wEnd = new Date(wStart.getTime() + 7 * 86400000);
+
+                let cellClass = '';
+                let statusDesc = '';
+
+                if (now >= wEnd) {
+                    cellClass = 'bg-gradient-to-br from-indigo-500 to-emerald-400 border-transparent';
+                    statusDesc = '已点亮通关 ✅';
+                } else if (now >= wStart && now < wEnd) {
+                    cellClass = 'bg-emerald-400 ring-2 ring-emerald-400/50 animate-pulse';
+                    statusDesc = '本周激战中 🔥';
+                } else {
+                    cellClass = 'bg-slate-200/70 dark:bg-slate-800/70 border border-slate-300/50 dark:border-slate-700/50 hover:border-indigo-400';
+                    statusDesc = '待点亮';
+                }
+
+                html += `
+                        <div data-info="第 ${w + 1} 周 (${formatDate(wStart)} 起) · ${statusDesc}"
+                             class="matrix-cell cursor-pointer aspect-square rounded-[5px] transition-transform hover:scale-125 ${cellClass}">
+                        </div>
+                    `;
+            }
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+
+        // 绑定悬停提示事件
+        container.querySelectorAll('.matrix-cell').forEach(cell => {
+            cell.addEventListener('mouseenter', () => {
+                hoverInfo.textContent = cell.getAttribute('data-info');
+            });
+        });
+    }
+
+    // 计算已经度过的周末天数与工作日天数
+    function calculatePastDaysBreakdown(start, now) {
+        if (now <= start) return { weekends: 0, workdays: 0 };
+        const totalDays = Math.floor((now - start) / 86400000);
+        const fullWeeks = Math.floor(totalDays / 7);
+        let weekends = fullWeeks * 2;
+        const remainder = totalDays % 7;
+        const startDayOfWeek = start.getDay(); // 0=周日, 6=周六
+
+        for (let i = 0; i < remainder; i++) {
+            const day = (startDayOfWeek + i) % 7;
+            if (day === 0 || day === 6) weekends++;
+        }
+        return {
+            weekends,
+            workdays: Math.max(0, totalDays - weekends)
+        };
+    }
+
+    // 更新所有微盼头与主看板数据（每秒执行）
+    function updateDashboard() {
+        const now = new Date();
+        const { start, end, totalMonths } = getCareerBounds();
+
+        const totalMs = Math.max(1, end - start);
+        const elapsedMs = Math.max(0, Math.min(totalMs, now - start));
+        const remainingMs = Math.max(0, end - now);
+
+        // 1. 核心主进度条精确到小数点后6位
+        const pct = (elapsedMs / totalMs) * 100;
+        document.getElementById('main-percentage-display').textContent = `${pct.toFixed(6)}%`;
+        document.getElementById('main-progress-bar').style.width = `${Math.min(100, Math.max(0.5, pct))}%`;
+        document.getElementById('target-years-label').textContent = state.targetYears;
+        document.getElementById('date-range-pill').textContent = `${formatDate(start)} ~ ${formatDate(end)}`;
+
+        const daysTotal = Math.round(totalMs / 86400000);
+        const daysPassed = Math.floor(elapsedMs / 86400000);
+        const daysRemaining = Math.ceil(remainingMs / 86400000);
+        const hoursPassed = Math.floor(elapsedMs / 3600000);
+
+        document.getElementById('days-passed').textContent = daysPassed.toLocaleString();
+        document.getElementById('hours-passed-sub').textContent = `${hoursPassed.toLocaleString()} 小时`;
+        document.getElementById('days-remaining').textContent = daysRemaining.toLocaleString();
+        document.getElementById('workdays-remaining-sub').textContent = `约 ${Math.round(daysRemaining * 5 / 7)} 个工作日`;
+        document.getElementById('days-total').textContent = daysTotal.toLocaleString();
+
+        // 计算距离下一个里程碑的天数
+        const nextMilestone = MILESTONES.find(m => m.pct > pct);
+        if (nextMilestone) {
+            const nextMs = start.getTime() + (nextMilestone.pct / 100) * totalMs;
+            const daysToNextM = Math.max(1, Math.ceil((nextMs - now.getTime()) / 86400000));
+            document.getElementById('next-milestone-sub').textContent = `距「${nextMilestone.label}」还有 ${daysToNextM} 天`;
+        } else {
+            document.getElementById('next-milestone-sub').textContent = `已达成全部里程碑 🎉`;
+        }
+
+        renderMilestones(pct);
+        renderMatrix(now, start, end, totalMonths);
+
+        // 2. 微盼头 A：今日下班倒计时
+        const [wsH, wsM] = state.workStart.split(':').map(Number);
+        const [weH, weM] = state.workEnd.split(':').map(Number);
+        const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), wsH, wsM, 0);
+        const todayEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), weH, weM, 0);
+
+        const offworkCountdownEl = document.getElementById('offwork-countdown');
+        const offworkSubEl = document.getElementById('offwork-subtext');
+        const offworkBarEl = document.getElementById('offwork-progress-bar');
+        const workStatusTag = document.getElementById('work-status-tag');
+
+        const dayOfWeek = now.getDay();
+        const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+
+        if (isWeekend) {
+            offworkCountdownEl.textContent = '周末休假中';
+            offworkSubEl.textContent = '今天不坐班，尽情享受生活吧！';
+            offworkBarEl.style.width = '100%';
+            workStatusTag.textContent = '周末愉快';
+        } else if (now < todayStart) {
+            const diffSec = Math.floor((todayStart - now) / 1000);
+            offworkCountdownEl.textContent = '尚未到岗';
+            offworkSubEl.textContent = `距离 ${state.workStart} 上班还有 ${Math.ceil(diffSec / 60)} 分钟`;
+            offworkBarEl.style.width = '0%';
+            workStatusTag.textContent = '待开启';
+        } else if (now >= todayEnd) {
+            offworkCountdownEl.textContent = '今日已自由 🎉';
+            offworkSubEl.textContent = `已完成今日副本，好好休息充电！`;
+            offworkBarEl.style.width = '100%';
+            workStatusTag.textContent = '已下班';
+        } else {
+            const leftSec = Math.floor((todayEnd - now) / 1000);
+            const h = String(Math.floor(leftSec / 3600)).padStart(2, '0');
+            const m = String(Math.floor((leftSec % 3600) / 60)).padStart(2, '0');
+            const s = String(leftSec % 60).padStart(2, '0');
+            const workPct = Math.min(100, Math.max(0, ((now - todayStart) / (todayEnd - todayStart)) * 100));
+
+            offworkCountdownEl.textContent = `${h}:${m}:${s}`;
+            offworkSubEl.textContent = `今日工时已消耗 ${workPct.toFixed(1)}%`;
+            offworkBarEl.style.width = `${workPct}%`;
+            workStatusTag.textContent = '搬砖充能中';
+        }
+
+        // 3. 微盼头 B：距离周五下班解放倒计时
+        const weekendCountdownEl = document.getElementById('weekend-countdown');
+        const weekendSubEl = document.getElementById('weekend-subtext');
+        const weekendBarEl = document.getElementById('weekend-progress-bar');
+        const weekendTagEl = document.getElementById('weekend-status-tag');
+
+        // 计算本周一上班时间与本周五下班时间
+        const daysSinceMonday = (dayOfWeek + 6) % 7; // 周一=0 ... 周日=6
+        const mondayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - daysSinceMonday, wsH, wsM, 0);
+        const fridayEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() - daysSinceMonday + 4, weH, weM, 0);
+
+        if (now >= fridayEnd || isWeekend) {
+            weekendCountdownEl.textContent = '周末狂欢中 🥳';
+            weekendSubEl.textContent = '本周工作已清零，自由属于你！';
+            weekendBarEl.style.width = '100%';
+            weekendTagEl.textContent = '自由模式';
+        } else {
+            const leftMs = fridayEnd - now;
+            const dLeft = Math.floor(leftMs / 86400000);
+            const hLeft = Math.floor((leftMs % 86400000) / 3600000);
+            const mLeft = Math.floor((leftMs % 3600000) / 60000);
+            const weekPct = Math.min(100, Math.max(0, ((now - mondayStart) / (fridayEnd - mondayStart)) * 100));
+
+            weekendCountdownEl.textContent = dLeft > 0 ? `${dLeft}天 ${hLeft}小时` : `${hLeft}小时 ${mLeft}分`;
+            weekendSubEl.textContent = `本周搬砖进度已走完 ${weekPct.toFixed(1)}%`;
+            weekendBarEl.style.width = `${weekPct}%`;
+            const weekNames = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+            weekendTagEl.textContent = `${weekNames[dayOfWeek]}推进中`;
+        }
+
+        // 4. 微盼头 C：距离下次发薪日
+        document.getElementById('payday-date-tag').textContent = `每月${state.payday}日`;
+        const todayZero = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        let nextPayDate = new Date(now.getFullYear(), now.getMonth(), state.payday);
+        // 处理部分月份天数不足（如2月30日自动取当月最后一天）
+        if (nextPayDate.getMonth() !== now.getMonth()) {
+            nextPayDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+        }
+        if (todayZero > nextPayDate) {
+            nextPayDate = new Date(now.getFullYear(), now.getMonth() + 1, state.payday);
+        }
+        const daysToPay = Math.round((nextPayDate - todayZero) / 86400000);
+        const paydayCountEl = document.getElementById('payday-countdown-days');
+        const paydaySubEl = document.getElementById('payday-subtext');
+        const paydayBarEl = document.getElementById('payday-progress-bar');
+
+        if (daysToPay === 0) {
+            paydayCountEl.textContent = '今天发薪！';
+            paydaySubEl.textContent = '🎉 叮！本月金币回血日达成！';
+            paydayBarEl.style.width = '100%';
+        } else {
+            paydayCountEl.textContent = daysToPay;
+            paydaySubEl.textContent = `下次发薪日：${formatDate(nextPayDate)}`;
+            const payCyclePct = Math.min(100, Math.max(5, ((30 - daysToPay) / 30) * 100));
+            paydayBarEl.style.width = `${payCyclePct}%`;
+        }
+
+        // 5. 微盼头 D：下一个法定节假日
+        const todayStr = formatDate(now);
+        let nextHoliday = HOLIDAYS.find(h => h.date >= todayStr);
+        if (!nextHoliday) {
+            nextHoliday = { date: `${now.getFullYear() + 1}-01-01`, name: '元旦假期', tip: '新的一年开启' };
+        }
+        const [hy, hm, hd] = nextHoliday.date.split('-').map(Number);
+        const holidayDateObj = new Date(hy, hm - 1, hd);
+        const daysToHoliday = Math.max(0, Math.round((holidayDateObj - todayZero) / 86400000));
+
+        document.getElementById('holiday-name-tag').textContent = nextHoliday.name;
+        document.getElementById('holiday-countdown-days').textContent = daysToHoliday === 0 ? '休假中!' : daysToHoliday;
+        document.getElementById('holiday-subtext').textContent = `目标日期：${nextHoliday.date}`;
+        document.getElementById('holiday-next-tip').textContent = nextHoliday.tip;
+
+        // 6. 打工换算器与 Buff 统计
+        const completedMonths = Math.max(0, Math.floor((daysPassed) / 30.4375));
+        document.getElementById('stat-paydays').textContent = completedMonths;
+        document.getElementById('stat-total-paydays').textContent = totalMonths;
+
+        const { weekends, workdays } = calculatePastDaysBreakdown(start, now);
+        document.getElementById('stat-weekends').textContent = weekends;
+        document.getElementById('stat-coffees').textContent = workdays + (state.extraCoffee || 0);
+
+        const expYears = (elapsedMs / (365.25 * 86400000)).toFixed(2);
+        document.getElementById('resume-exp-text').textContent = `${expYears} / ${state.targetYears.toFixed(1)} 年`;
+    }
+
+    // 初始化事件监听
+    function initEvents() {
+        // 主题切换
+        document.getElementById('theme-toggle-btn').addEventListener('click', () => {
+            state.theme = state.theme === 'dark' ? 'light' : 'dark';
+            saveConfig();
+            applyTheme();
+        });
+
+        // 视图切换：36个月 vs 156周
+        const btnMonths = document.getElementById('view-months-btn');
+        const btnWeeks = document.getElementById('view-weeks-btn');
+
+        function updateViewToggleStyle() {
+            if (state.matrixView === 'months') {
+                btnMonths.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-white dark:bg-slate-700 text-indigo-600 dark:text-white shadow-sm';
+                btnWeeks.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white';
+            } else {
+                btnWeeks.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-white dark:bg-slate-700 text-indigo-600 dark:text-white shadow-sm';
+                btnMonths.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white';
+            }
+        }
+
+        btnMonths.addEventListener('click', () => {
+            state.matrixView = 'months';
+            saveConfig();
+            updateViewToggleStyle();
+            updateDashboard();
+        });
+
+        btnWeeks.addEventListener('click', () => {
+            state.matrixView = 'weeks';
+            saveConfig();
+            updateViewToggleStyle();
+            updateDashboard();
+        });
+
+        updateViewToggleStyle();
+
+        // 咖啡 +1 互动及浮动动画
+        const coffeeBtn = document.getElementById('add-coffee-btn');
+        coffeeBtn.addEventListener('click', () => {
+            state.extraCoffee = (state.extraCoffee || 0) + 1;
+            saveConfig();
+            updateDashboard();
+
+            // 创建浮动 +1 特效
+            const floatEl = document.createElement('span');
+            floatEl.textContent = '☕ +1';
+            floatEl.className = 'absolute -top-6 right-0 text-xs font-bold text-amber-500 pointer-events-none float-plus-one whitespace-nowrap';
+            coffeeBtn.appendChild(floatEl);
+            setTimeout(() => floatEl.remove(), 700);
+        });
+
+        // 精神氮泵金句点击切换
+        const quoteCard = document.getElementById('quote-card');
+        quoteCard.addEventListener('click', () => {
+            currentQuoteIdx = (currentQuoteIdx + 1) % QUOTES.length;
+            const q = QUOTES[currentQuoteIdx];
+            document.getElementById('quote-text').textContent = q.text;
+            document.getElementById('quote-tag').textContent = q.tag;
+            document.getElementById('quote-index').textContent = `${currentQuoteIdx + 1} / ${QUOTES.length}`;
+        });
+
+        // 设置弹窗打开与关闭
+        const modal = document.getElementById('settings-modal');
+        document.getElementById('open-settings-btn').addEventListener('click', () => {
+            document.getElementById('input-start-date').value = state.startDate;
+            document.getElementById('input-target-years').value = state.targetYears;
+            document.getElementById('input-payday').value = state.payday;
+            document.getElementById('input-work-start').value = state.workStart;
+            document.getElementById('input-work-end').value = state.workEnd;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        });
+
+        const closeModal = () => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        };
+        document.getElementById('close-settings-btn').addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // 保存表单配置
+        document.getElementById('settings-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            state.startDate = document.getElementById('input-start-date').value || DEFAULT_CONFIG.startDate;
+            state.targetYears = parseFloat(document.getElementById('input-target-years').value) || 3;
+            state.payday = Math.min(31, Math.max(1, parseInt(document.getElementById('input-payday').value, 10) || 15));
+            state.workStart = document.getElementById('input-work-start').value || '09:00';
+            state.workEnd = document.getElementById('input-work-end').value || '18:00';
+            lastRenderedMatrixKey = '';
+            saveConfig();
+            updateDashboard();
+            closeModal();
+        });
+
+        // 恢复默认设置
+        document.getElementById('reset-default-btn').addEventListener('click', () => {
+            state = { ...DEFAULT_CONFIG, theme: state.theme };
+            lastRenderedMatrixKey = '';
+            saveConfig();
+            updateDashboard();
+            closeModal();
+        });
+
+        // 老板键 (伪装模式) 切换
+        const bossOverlay = document.getElementById('boss-overlay');
+        const toggleBossMode = () => {
+            bossOverlay.classList.toggle('hidden');
+        };
+        document.getElementById('boss-key-btn').addEventListener('click', toggleBossMode);
+        document.getElementById('exit-boss-btn').addEventListener('click', toggleBossMode);
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (!modal.classList.contains('hidden')) {
+                    closeModal();
+                } else {
+                    toggleBossMode();
+                }
+            }
+        });
+    }
+
+    // 启动应用
+    window.onload = function () {
+        applyTheme();
+        initEvents();
+        updateDashboard();
+        // 100ms 刷新一次，让小数点后6位呈现出丝滑的时光流逝动感
+        setInterval(updateDashboard, 100);
+    };
+</script>
+</body>
+</html>

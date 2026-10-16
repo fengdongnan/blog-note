@@ -92,18 +92,94 @@ idea 实操:
 
 
 idea 中设置检查圈复杂度:
+1.idea setting -> Editor -> Inspections
+2.Java -> Method metrics -> 勾选 Overly complex method
+3.配置阈值, 提示级别
+![](https://raw.githubusercontent.com/fengdongnan/image-bed/main/img/20261013143411676.png)
 
 
  ### switch
  多次用到同一switch的场景: **可以使用多态取代条件表达式，引入缺少的模型**，消除重复的 switch。
- todo?
+ todo? guide_strategy_replaces_switch
 
  ## 封装
- 当你必须得先了解一个类的细节，才能写出代码时，这只能说明一件事，这个封装是失败的。
+ ### 火车残骸代码
 
- 要想摆脱初级程序员的水平，就要先从少暴露细节开始。声明完一个类的字段之后，请停下生成 getter 的手，转而让大脑开始工作，思考这个类应该提供的行为。
+即连续的函数调用: a.getB().getC().getD()
+
+ 未经封装, 直接取出字段, 将内部的实现细节暴露给外部:
+ 1. 对类本身, 实现细节暴露, 且存在 违反 OCP 原则的风险
+ 2. 对调用者, 需要跟进了解底层实现细节
+
+ ```java
+ 　　String name = book.getAuthor().getName();
+    //1.暴露了内部数据结果关系:Book -> Author -> Name, 如果后续改为多人合著, 模型变为 Book -> List<Author> authors, 则代码内所有的调用处都需要修改
+    //2.写法上, 一连串取值容易 npe , 需要做特殊校验处理
+
+    //解决方法: 隐藏委托关系
+ class Book {
+
+ 　　  ...
+
+ 　　  public String getAuthorName() {
+ 　　    return this.author.getName();
+        //return authors.stream().map(Author::getName).collect(joining(", "));
+        //调用方只关心 book.getAuthorName()，只需在 Book 内部修改 ，外部调用方零感知、零修改
+ 　　  }
+
+ 　　  ...
+
+ 　　}
+ 　　String name = book.getAuthorName();
+ ```
+
+> 当你必须得先了解一个类的细节，才能写出代码时，这只能说明一件事，这个封装是失败的
+> 要想摆脱初级程序员的水平，就要先从少暴露细节开始。声明完一个类的字段之后，请停下生成 getter 的手，转而让大脑开始工作，思考这个类应该提供的行为。
+
+同时为了避免封装过于用力导致反方向坏味道:
+- DTO这种纯数据流透传, 可以直接get
+- 业务模型的字段透出, 必须做封装
+
+### 基本类型偏执
+
+用各种基本类型作为模型到处传递
+
+重构方法: 以对象取代基本类型，也就是提供一个模型代替原来的基本类型
+
+```java
+    public double getEpubPrice(final boolean highQuality, final int chapterSequence) {
+
+　　  ...
+
+　　  }
+    //方法返回价格, 这里用 基本类型 double, 不具有业务含义
+    //但是 价格 作为一个实体拥有自己的业务含义, 比如 "价格>0", "对外呈现时只有两位"
+    class Price {
+
+    　　  private long price;
+
+    　　  public Price(final double price) {  //构造时限制大于0, 否则需要在各种用到的地方做判断
+    　　    if (price <= 0) {
+    　　      throw new IllegalArgumentException("Price should be positive");
+    　　    }
+    　　    this.price = price;
+    　　  }
+
+         public double getDisplayPrice() {   //将项目中散落的转换逻辑收敛到实体内
+         　　  BigDecimal decimal = new BigDecimal(this.price)；
+         　　  return decimal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+         　　}
+    　　}
+
+```
+
 
  ## 可变数据
+
+ 程序 = 数据结构 + 算法; 但是软件 = 众多程序的组合, 因此需要使用 设计模式和抽象思想 来维护使用
+
+ setter 同 getter 一样，反映的都是对细节的暴露。
+
  可变数据最直白的体现就是各种 setter。setter 一方面破坏了封装，另一方面它会带来不可控的修改，给代码增添许多问题。解决它的一种方式就是移除设值函数（Remove Setting Method）, 为变换参数抽象方法, 将变化限制在一定的范围之内。
 
 可变数据是《重构》第二版新增的坏味道，这其实反映了软件开发行业的一种进步，它背后的思想是函数式编程所体现的不变性。解决可变数据，一种方式是**限制其变化**，另一种方式是**编写不变类**。

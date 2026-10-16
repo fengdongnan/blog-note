@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<package unique-identifier="BookId" version="2.0" xmlns="http://www.idpf.org/2007/opf">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+    <dc:creator opf:role="aut">173-代码之丑</dc:creator>
+    <dc:title>173-代码之丑</dc:title>
+    <dc:identifier id="BookId" opf:scheme="UUID">urn:uuid:88ae524f6f334b538ce5a97e32e75476</dc:identifier>
+    <meta content="1.0.0" name="jianhelper"/>
+    <dc:language>zh-CN</dc:language>
+    <dc:date opf:event="modification" xmlns:opf="http://www.idpf.org/2007/opf">2023-01-27</dc:date>
+  </metadata>
+  <manifest>
+    <item href="Styles/Style.css" id="style" media-type="text/css"/>
+    <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+	
+    <item href="Text/00.html" id="x00.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/01.html" id="x01.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/02.html" id="x02.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/03.html" id="x03.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/04.html" id="x04.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/05.html" id="x05.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/06.html" id="x06.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/07.html" id="x07.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/08.html" id="x08.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/09.html" id="x09.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/10.html" id="x10.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/11.html" id="x11.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/12.html" id="x12.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/13.html" id="x13.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/14.html" id="x14.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/15.html" id="x15.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/16.html" id="x16.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/17.html" id="x17.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/18.html" id="x18.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/19.html" id="x19.html" media-type="application/xhtml+xml"/>
+    
+    <item href="Text/20.html" id="x20.html" media-type="application/xhtml+xml"/>
+    
+    
+    <item href="Images/98bd14a45a14f459cc24b4cd8c332b84.png" id="98bd14a45a14f459cc24b4cd8c332b84.png" media-type="image/jpeg"/>
+    
+    <item href="Images/af6ec2d04c4bd794a261919325763571.png" id="af6ec2d04c4bd794a261919325763571.png" media-type="image/jpeg"/>
+    
+    <item href="Images/f850b191f3510f8a203406fed59c87d7.png" id="f850b191f3510f8a203406fed59c87d7.png" media-type="image/jpeg"/>
+    
+    <item href="Images/6e58254a89a7e9a9569d17ad446659f0.png" id="6e58254a89a7e9a9569d17ad446659f0.png" media-type="image/jpeg"/>
+    
+    <item href="Images/b8af2d2df622e987005332aa64200d3a.png" id="b8af2d2df622e987005332aa64200d3a.png" media-type="image/jpeg"/>
+    
+    <item href="Images/d3f143a4790ecb9138cc930277bd69c9.png" id="d3f143a4790ecb9138cc930277bd69c9.png" media-type="image/jpeg"/>
+    
+    <item href="Images/abea9ad82a18f81978b42d362365defc.png" id="abea9ad82a18f81978b42d362365defc.png" media-type="image/jpeg"/>
+    
+    <item href="Images/567186ffe4fdbffee9c508bd44d88889.png" id="567186ffe4fdbffee9c508bd44d88889.png" media-type="image/jpeg"/>
+    
+    <item href="Images/c4c3a4e42a532abae8ca44f7dedbd262.png" id="c4c3a4e42a532abae8ca44f7dedbd262.png" media-type="image/jpeg"/>
+    
+    <item href="Images/b68a67051ad9e4fe54f7c9259e6e3c27.png" id="b68a67051ad9e4fe54f7c9259e6e3c27.png" media-type="image/jpeg"/>
+    
+    <item href="Images/e92cd818337ab06ddfe4a9ea139ccd79.png" id="e92cd818337ab06ddfe4a9ea139ccd79.png" media-type="image/jpeg"/>
+    
+    <item href="Images/01bce7da05db0dd9996882d9114862e6.png" id="01bce7da05db0dd9996882d9114862e6.png" media-type="image/jpeg"/>
+    
+    <item href="Images/2c63b519cd47b853b872367d84f57478.png" id="2c63b519cd47b853b872367d84f57478.png" media-type="image/jpeg"/>
+    
+    <item href="Images/0bdd0ac64bbfe1330ecc45395cd8ff2a.png" id="0bdd0ac64bbfe1330ecc45395cd8ff2a.png" media-type="image/jpeg"/>
+    
+    <item href="Images/7dc1a70bf253be2ebdfe513b7df0d22a.png" id="7dc1a70bf253be2ebdfe513b7df0d22a.png" media-type="image/jpeg"/>
+    
+    <item href="Images/02f5be6ce114ddcbae1473750efd0216.png" id="02f5be6ce114ddcbae1473750efd0216.png" media-type="image/jpeg"/>
+    
+    <item href="Images/7ccae2fb62469a742b8334a43ebe8c6a.png" id="7ccae2fb62469a742b8334a43ebe8c6a.png" media-type="image/jpeg"/>
+    
+    <item href="Images/869d2585c068aa56b73854355dc8bf4a.png" id="869d2585c068aa56b73854355dc8bf4a.png" media-type="image/jpeg"/>
+    
+    <item href="Images/53fba081ee36e77bddcd18e78e0ec90f.png" id="53fba081ee36e77bddcd18e78e0ec90f.png" media-type="image/jpeg"/>
+    
+    <item href="Images/56765713829264970f859f1860d487b1.png" id="56765713829264970f859f1860d487b1.png" media-type="image/jpeg"/>
+    
+    <item href="Images/768dc67120dc8cb3063858b107b8114b.png" id="768dc67120dc8cb3063858b107b8114b.png" media-type="image/jpeg"/>
+    
+  </manifest>
+  <spine toc="ncx">
+    
+    <itemref idref="x00.html"/>
+    
+    <itemref idref="x01.html"/>
+    
+    <itemref idref="x02.html"/>
+    
+    <itemref idref="x03.html"/>
+    
+    <itemref idref="x04.html"/>
+    
+    <itemref idref="x05.html"/>
+    
+    <itemref idref="x06.html"/>
+    
+    <itemref idref="x07.html"/>
+    
+    <itemref idref="x08.html"/>
+    
+    <itemref idref="x09.html"/>
+    
+    <itemref idref="x10.html"/>
+    
+    <itemref idref="x11.html"/>
+    
+    <itemref idref="x12.html"/>
+    
+    <itemref idref="x13.html"/>
+    
+    <itemref idref="x14.html"/>
+    
+    <itemref idref="x15.html"/>
+    
+    <itemref idref="x16.html"/>
+    
+    <itemref idref="x17.html"/>
+    
+    <itemref idref="x18.html"/>
+    
+    <itemref idref="x19.html"/>
+    
+    <itemref idref="x20.html"/>
+    
+  </spine>
+  <guide>
+  </guide>
+</package>
